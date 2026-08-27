@@ -67,7 +67,7 @@
         "deb"
       ],
       "category": "Office",
-      "dekstopName": "OpenBudget",
+      "desktopName": "OpenBudget",
       "syncDesktopName": true,
       "artifactName": "OpenBudget-${version}-Linux-${arch}.${ext}"
     }
