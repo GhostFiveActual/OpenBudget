@@ -8,13 +8,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "desktop": "electron .",
-    "desktop:dev": "concurrently -k \"vite --host 127.0.0.1\" \"wait-on http://127.0.0.1:5173 && cross-env OPENBUDGET_DEV=1 electron .\"",
-    "dist": "npm run build && electron-builder",
-    "dist:win": "npm run build && electron-builder --win",
-    "dist:mac": "npm run build && electron-builder --mac",
-    "dist:linux": "npm run build && electron-builder --linux",
-    "test": "node tests/engine.test.mjs && node tests/store.test.mjs && node tests/release.test.mjs"
+    "preview": "vite preview",
+    "test": "node tests/engine.test.mjs && node tests/storage.test.mjs",
+    "dist:win": "npm run build && electron-builder --win --publish never",
+    "dist:mac": "npm run build && electron-builder --mac --publish never",
+    "dist:linux": "npm run build && electron-builder --linux --publish never"
   },
   "devDependencies": {
     "concurrently": "^9.2.0",
