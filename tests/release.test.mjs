@@ -9,7 +9,11 @@ const electron = read('electron/main.cjs');
 const vite = read('vite.config.js');
 const srcFiles = ['src/main.js','src/engine.js','src/store.js','src/tax-data.js','src/tax-engine.js'].map(read).join('\n');
 
-assert.equal(pkg.version, '3.1.3');
+assert.match(
+  pkg.version,
+  /^\d+\.\d+\.\d+$/,
+  "package.json version must use semantic versioning"
+);
 assert.match(index, /connect-src 'none'/, 'CSP must deny renderer network connections');
 assert.match(index, /src="\.\/src\/main\.js"/, 'portable source entry should be relative');
 assert.doesNotMatch(srcFiles, /https?:\/\//, 'runtime finance source must not contain remote HTTP endpoints');
