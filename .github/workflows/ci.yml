@@ -1,4 +1,4 @@
-name: OpenBudget CI
+name: OwnLedger CI
 
 on:
   push:

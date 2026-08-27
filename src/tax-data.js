@@ -1,4 +1,4 @@
-// OpenBudget offline tax data pack.
+// OwnLedger offline tax data pack.
 // Data is intentionally versioned and bundled with the application; the app never fetches tax rules.
 
 export const TAX_DATA_VERSION = '2026.1';

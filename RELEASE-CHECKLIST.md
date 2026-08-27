@@ -1,4 +1,4 @@
-# OpenBudget Release Checklist
+# OwnLedger Release Checklist
 
 ## Correctness
 

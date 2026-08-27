@@ -1,10 +1,10 @@
-OPENBUDGET 3.1.2 — RELEASE-CANDIDATE START HERE
+OWNLEDGER 1.0.0 — RELEASE-CANDIDATE START HERE
 
 FOR END USERS
-OpenBudget is intended to be distributed as a normal offline desktop installer:
-- Windows: OpenBudget-3.1.2-Windows-Setup.exe
-- macOS: OpenBudget-3.1.2-macOS.dmg
-- Linux: OpenBudget-3.1.2-Linux-*.AppImage or .deb
+OwnLedger is intended to be distributed as a normal offline desktop installer:
+- Windows: OwnLedger-3.1.2-Windows-Setup.exe
+- macOS: OwnLedger-3.1.2-macOS.dmg
+- Linux: OwnLedger-3.1.2-Linux-*.AppImage or .deb
 
 Once installed, the production desktop wrapper blocks outbound network access. The application does not need an account, bank connection, cloud database, analytics service, or automatic updater.
 
@@ -19,7 +19,7 @@ FIRST-RUN RECOMMENDATION
 1. Enter next payday and take-home pay.
 2. Add checking/savings balances and an emergency-fund target.
 3. Add recurring bills and income.
-4. Add debts in Debt Payoff. Do NOT duplicate debt minimums as bills; OpenBudget automatically reserves debt minimums across paychecks.
+4. Add debts in Debt Payoff. Do NOT duplicate debt minimums as bills; OwnLedger automatically reserves debt minimums across paychecks.
 5. Export an offline backup after setup.
 
 DEVELOPERS / MAINTAINERS

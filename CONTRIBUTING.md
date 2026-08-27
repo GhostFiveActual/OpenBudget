@@ -1,62 +1,27 @@
-# Contributing to OpenBudget
+# Contributing to OwnLedger
 
-Thank you for helping improve a free, private personal-finance tool.
+Bug fixes, tests, tax packs, documentation, accessibility work, design improvements, translations, and new financial tools are welcome.
 
-## Project principles
+## Core rules
+1. **OwnLedger Core stays offline.** No telemetry, analytics, ads, bank APIs, cloud sync, remote content, or automatic update checks without explicit architecture review.
+2. **Calculation changes require tests.** Financial logic needs regression coverage and visible assumptions.
+3. **Storage changes require migrations.** Never strand or silently destroy user data.
+4. **Keep input simple.** Prefer understandable workflows over feature density.
+5. **Do not collect unnecessary secrets.** Do not ask for passwords, PINs, SSNs, or full card/account credentials.
 
-Every contribution must preserve these rules:
-
-1. **Offline means offline.** The installed application may not require or silently contact an internet service.
-2. **No financial surveillance.** No telemetry, analytics, ads, fingerprinting, crash uploads, bank aggregation, or behavioral tracking.
-3. **Simple before clever.** A non-finance expert should understand the input and the result.
-4. **Explain assumptions.** Financial, tax, and decision calculations must expose important assumptions instead of pretending estimates are guarantees.
-5. **Portable data.** Users must retain the ability to export understandable local data.
-6. **Tests are required for calculation changes.** Any change to finance, recurrence, tax, payoff, or Decision Center logic must include regression coverage.
-
-## Before opening a pull request
-
+## Development
 ```bash
+npm install
 npm test
-node --check src/main.js
-node --check src/engine.js
-node --check src/store.js
-node --check src/tax-engine.js
-node --check electron/main.cjs
-```
-
-If dependencies are installed, also run:
-
-```bash
 npm run build
 ```
+See `docs/DEVELOPMENT.md` and `docs/TESTING.md`.
 
-For installer-related changes, test the generated installer on the target operating system with networking disabled.
+## Pull requests
+Keep PRs focused. Explain the problem, behavior change, tests, storage implications, and network implications. UI changes should include screenshots when practical. Large architectural changes should begin as a Discussion or Issue.
 
-## Good contribution areas
+## Tax data
+Tax changes must identify jurisdiction, tax year, authoritative government source, effective date, assumptions, and regression cases. Do not download tax rules at runtime.
 
-- Accessibility and keyboard navigation
-- Localization/internationalization
-- Additional verified state/local tax packs
-- More CSV import mappings without remote bank connectivity
-- Tests and test fixtures using synthetic data only
-- Documentation and onboarding improvements
-- Performance improvements for large local transaction histories
-- Additional Decision Center scenarios proposed through an issue first
-- Optional at-rest encryption designs that remain fully local
-
-## Sensitive data
-
-Never attach real paystubs, tax forms, bank exports, account numbers, financial backups, or screenshots containing personal financial information to issues or pull requests. Use synthetic examples only.
-
-## Scope proposals
-
-For a new finance module, open an issue describing:
-
-- the user question it answers,
-- the minimum inputs required,
-- the formulas/authoritative sources,
-- how it remains offline,
-- edge cases and failure states,
-- what tests would prove it correct.
-
-Large additions should not be merged merely because they are possible. OpenBudget should remain understandable.
+## Security
+Do not open a public Issue for vulnerabilities that could expose, corrupt, alter, or destroy financial data. Follow `SECURITY.md`.

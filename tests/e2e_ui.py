@@ -37,11 +37,11 @@ def submit(page, label):
     page.wait_for_timeout(25)
 
 def state(page):
-    raw=page.evaluate("localStorage.getItem('openbudget:v5')")
+    raw=page.evaluate("localStorage.getItem('ownledger:v1')")
     return json.loads(raw) if raw else None
 
 with sync_playwright() as p:
-    chromium=os.environ.get('OPENBUDGET_CHROMIUM') or shutil.which('chromium') or shutil.which('chromium-browser') or shutil.which('google-chrome')
+    chromium=os.environ.get('OWNLEDGER_CHROMIUM') or shutil.which('chromium') or shutil.which('chromium-browser') or shutil.which('google-chrome')
     launch_args={'headless':True,'args':['--no-sandbox']}
     if chromium:
         launch_args['executable_path']=chromium
@@ -109,7 +109,7 @@ with sync_playwright() as p:
     ok('transaction HTML is escaped', page.evaluate('window.__xss') is None)
 
     # CSV import with quoted comma, negative expense, explicit positive expense, positive income
-    csv=Path('/tmp/openbudget-e2e.csv'); csv.write_text('date,description,amount,type,category\n2026-08-26,"Coffee, beans",-12.34,,Dining\n2026-08-25,Electric,100,expense,Utilities\n2026-08-24,Refund,50,income,Other\n2026-08-23,Uppercase Expense,25,Expense,Shopping\nnot-a-date,Bad Date,99,expense,Other\n')
+    csv=Path('/tmp/ownledger-e2e.csv'); csv.write_text('date,description,amount,type,category\n2026-08-26,"Coffee, beans",-12.34,,Dining\n2026-08-25,Electric,100,expense,Utilities\n2026-08-24,Refund,50,income,Other\n2026-08-23,Uppercase Expense,25,Expense,Shopping\nnot-a-date,Bad Date,99,expense,Other\n')
     page.get_by_role('button',name='Import CSV',exact=True).click(); page.locator('input[name=csv]').set_input_files(str(csv)); submit(page,'Import CSV')
     s=state(page); ok('CSV imports valid rows', len(s['transactions'])==5, str(s['transactions']))
     types={t['description']:t['type'] for t in s['transactions']}; ok('CSV sign/type mapping correct', types['Coffee, beans']=='expense' and types['Electric']=='expense' and types['Refund']=='income' and types['Uppercase Expense']=='expense' and 'Bad Date' not in types, str(types))
@@ -173,9 +173,9 @@ with sync_playwright() as p:
     # 17. Backup export/download
     route(page,'settings')
     with page.expect_download() as di:
-        page.get_by_role('button',name='Export OpenBudget backup',exact=True).click()
-    dl=di.value; backup_path=Path('/tmp/openbudget-backup.json'); dl.save_as(str(backup_path)); ok('backup file downloaded', backup_path.exists() and backup_path.stat().st_size>100)
-    backup=json.loads(backup_path.read_text()); ok('backup envelope valid', backup.get('format')=='OpenBudgetBackup' and backup.get('data',{}).get('schemaVersion')==5)
+        page.get_by_role('button',name='Export OwnLedger backup',exact=True).click()
+    dl=di.value; backup_path=Path('/tmp/ownledger-backup.json'); dl.save_as(str(backup_path)); ok('backup file downloaded', backup_path.exists() and backup_path.stat().st_size>100)
+    backup=json.loads(backup_path.read_text()); ok('backup envelope valid', backup.get('format')=='OwnLedgerBackup' and backup.get('data',{}).get('schemaVersion')==5)
 
     # 18. Reset then restore backup
     page.get_by_role('button',name='Erase all local data',exact=True).click(); page.wait_for_timeout(30)
@@ -184,7 +184,7 @@ with sync_playwright() as p:
     s=state(page); ok('backup restore recovers data', s['profile']['name']=='E2E User' and len(s['transactions'])==5 and len(s['debts'])==1)
 
     # 19. Corrupt backup rejected without destroying current data
-    bad=Path('/tmp/openbudget-bad.json'); bad.write_text('{"format":"OpenBudgetBackup","data":{"transactions":"wrong"}}')
+    bad=Path('/tmp/ownledger-bad.json'); bad.write_text('{"format":"OwnLedgerBackup","data":{"transactions":"wrong"}}')
     before=state(page)
     page.locator('input#import').set_input_files(str(bad)); page.wait_for_timeout(30)
     after=state(page); ok('bad backup does not replace current data', before['profile']['name']==after['profile']['name'] and len(after['transactions'])==5)

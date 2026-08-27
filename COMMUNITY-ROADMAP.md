@@ -1,7 +1,21 @@
-# Community Roadmap
+# OwnLedger Community Roadmap
 
-OpenBudget 3.1 is intentionally feature-frozen as the core baseline. The items below are **contribution opportunities, not promised built-in features**.
+OwnLedger 1.0 is the public MVP baseline. These are contribution opportunities, not promises or deadlines.
 
-Potential community proposals include additional verified state/local tax packs, localization, accessibility improvements, encrypted local vaults/backups, broader offline transaction-import formats, richer historical charts, retirement scenarios, mortgage/rent-vs-buy modeling, education savings, insurance reserve planning, credit utilization, and additional Decision Center scenarios.
+## High-value areas
+- Additional U.S. state/county/municipal tax packs
+- International tax/payroll support
+- Accessibility and keyboard/screen-reader improvements
+- Localization and translations
+- Additional offline import formats
+- Better reports and visualizations
+- More Decision Center scenarios
+- Retirement and education planning
+- Local encryption options with safe recovery design
+- Themes and UI refinements
+- macOS/Linux packaging and testing
+- Documentation and financial-literacy explanations
+- Automated accessibility and property-based calculation tests
 
-Any proposal must preserve OpenBudget's offline security model and simple user experience. Features requiring bank credentials, cloud accounts, telemetry, remote APIs, embedded web content, or automatic data transmission are outside the project's intended architecture.
+## Architectural boundary
+OwnLedger Core must remain offline-first. Features requiring bank credentials, mandatory accounts, telemetry, advertising, cloud financial storage, embedded remote content, or silent/background transmission of financial data are outside Core. If a proposal needs networking, open a design discussion first.

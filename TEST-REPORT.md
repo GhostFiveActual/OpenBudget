@@ -1,4 +1,4 @@
-# OpenBudget 3.1.1 End-to-End Test Report
+# OwnLedger 1.0.0 End-to-End Test Report
 
 Test date: 2026-08-27
 
@@ -6,7 +6,7 @@ Test date: 2026-08-27
 
 This release was exercised from a fresh profile through onboarding, tax/paycheck setup, recurring income and bills, budgets, accounts, manual transactions, CSV import, debt payoff, goals, investments, pay-period planning, net worth, purchase affordability, every Decision Center scenario, reports, calendar, backup export, destructive reset, backup restore, invalid-backup rejection, and narrow/mobile navigation.
 
-The browser workflow runs the actual OpenBudget UI source and CSS in Chromium with an isolated test-only local-storage shim. This allows repeatable UI testing without changing the application's production offline protections.
+The browser workflow runs the actual OwnLedger UI source and CSS in Chromium with an isolated test-only local-storage shim. This allows repeatable UI testing without changing the application's production offline protections.
 
 ## Automated results
 
@@ -37,7 +37,7 @@ The browser workflow runs the actual OpenBudget UI source and CSS in Chromium wi
 
 The 2026 federal automated percentage-method tables were checked against IRS Publication 15-T. The 2026 Social Security wage base and rates were checked against SSA/IRS material. Maryland state/county data was checked against the Comptroller of Maryland's 2026 Withholding Tax Facts, including the Anne Arundel and Frederick tier schedules.
 
-Maryland state withholding remains intentionally labeled as a planning estimate because OpenBudget does not yet reproduce every MW507 exemption and employer-specific Maryland payroll rule. Pay-stub calibration remains the recommended way to align the local estimate with an actual employer paycheck.
+Maryland state withholding remains intentionally labeled as a planning estimate because OwnLedger does not yet reproduce every MW507 exemption and employer-specific Maryland payroll rule. Pay-stub calibration remains the recommended way to align the local estimate with an actual employer paycheck.
 
 ## Installer-build status
 

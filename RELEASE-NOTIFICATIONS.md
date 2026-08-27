@@ -1,12 +1,12 @@
 # Release Notification Design
 
-The email list is deliberately separate from the installed OpenBudget application.
+The email list is deliberately separate from the installed OwnLedger application.
 
 ## Recommended public website flow
 
-1. User visits the official OpenBudget download page.
+1. User visits the official OwnLedger download page.
 2. User downloads the installer directly.
-3. Separately, the page offers an optional field: “Email me when a new tested OpenBudget release is available.”
+3. Separately, the page offers an optional field: “Email me when a new tested OwnLedger release is available.”
 4. Mailing-list provider stores only the email address, consent timestamp, and subscription status.
 5. Maintainers send a release notice only after a version has completed testing and has been published.
 6. Email links back to the official public release page.

@@ -1,4 +1,4 @@
-name: Build OpenBudget Installers
+name: Build OwnLedger Installers
 
 on:
   workflow_dispatch:
@@ -28,26 +28,26 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v4
-
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-
+          cache: npm
       - name: Install dependencies
         run: npm install
-
       - name: Run core tests
         run: npm test
-
       - name: Build installer
         run: ${{ matrix.command }}
-
       - name: Upload installer artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: OpenBudget-${{ matrix.artifact }}
-          path: release/*
+          name: OwnLedger-${{ matrix.artifact }}
+          path: |
+            release/*.exe
+            release/*.dmg
+            release/*.AppImage
+            release/*.deb
           if-no-files-found: error
 
   release:
@@ -60,9 +60,14 @@ jobs:
         with:
           path: installers
           merge-multiple: true
-
+      - name: Generate SHA-256 checksums
+        shell: bash
+        run: |
+          cd installers
+          sha256sum * > SHA256SUMS.txt
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: installers/*
+          files: |
+            installers/*
           generate_release_notes: true

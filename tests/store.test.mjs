@@ -17,7 +17,8 @@ state.transactions.push({id:'t1',date:'2026-08-27',description:'Test',amount:5,t
 state=saveState(state);
 assert.equal(loadState().transactions.length,1);
 
-const wrapped={format:'OpenBudgetBackup',backupVersion:1,exportedAt:'2026-08-27T00:00:00.000Z',data:state};
+const wrapped={format:'OwnLedgerBackup',backupVersion:1,exportedAt:'2026-08-27T00:00:00.000Z',data:state};
+const legacyWrapped={format:'OpenBudgetBackup',backupVersion:1,exportedAt:'2026-08-27T00:00:00.000Z',data:state};
 const imported=await importBackup({size:1000,text:async()=>JSON.stringify(wrapped)});
 assert.equal(imported.transactions[0].description,'Test');
 
@@ -26,6 +27,6 @@ assert.equal(legacy.schemaVersion,5,'Legacy direct-state backups remain importab
 
 await assert.rejects(()=>importBackup({size:11*1024*1024,text:async()=>''}),/larger than 10 MB/);
 await assert.rejects(()=>importBackup({size:100,text:async()=>'{bad'}),/not valid JSON/);
-await assert.rejects(()=>importBackup({size:100,text:async()=>JSON.stringify({foo:'bar'})}),/missing required OpenBudget data/);
+await assert.rejects(()=>importBackup({size:100,text:async()=>JSON.stringify({foo:'bar'})}),/missing required OwnLedger data/);
 
-console.log('OpenBudget storage, backup, and migration tests passed');
+console.log('OwnLedger storage, backup, and migration tests passed');

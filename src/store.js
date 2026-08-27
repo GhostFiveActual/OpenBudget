@@ -1,5 +1,7 @@
-const KEY = 'openbudget:v5';
-const BACKUP_FORMAT = 'OpenBudgetBackup';
+const KEY = 'ownledger:v1';
+const OPENBUDGET_V5_KEY = 'openbudget:v5';
+const BACKUP_FORMAT = 'OwnLedgerBackup';
+const LEGACY_BACKUP_FORMAT = 'OpenBudgetBackup';
 const MAX_BACKUP_BYTES = 10 * 1024 * 1024;
 const V4_KEY = 'openbudget:v4';
 const V3_KEY = 'openbudget:v3';
@@ -75,7 +77,7 @@ function normalize(parsed = {}) {
 
 function migrateLegacy() {
   try {
-    const raw = localStorage.getItem(V4_KEY) || localStorage.getItem(V3_KEY) || localStorage.getItem(V2_KEY) || localStorage.getItem(LEGACY_KEY);
+    const raw = localStorage.getItem(OPENBUDGET_V5_KEY) || localStorage.getItem(V4_KEY) || localStorage.getItem(V3_KEY) || localStorage.getItem(V2_KEY) || localStorage.getItem(LEGACY_KEY);
     if (!raw) return null;
     const old = JSON.parse(raw);
     const migrated = normalize(old);
@@ -101,6 +103,7 @@ export function saveState(state) {
 
 export function resetState() {
   localStorage.removeItem(KEY);
+  localStorage.removeItem(OPENBUDGET_V5_KEY);
   localStorage.removeItem(V4_KEY);
   localStorage.removeItem(V3_KEY);
   localStorage.removeItem(V2_KEY);
@@ -114,25 +117,25 @@ export function exportBackup(state) {
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `OpenBudget-backup-${stamp().slice(0,10)}.json`;
+  a.download = `OwnLedger-backup-${stamp().slice(0,10)}.json`;
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 0);
   return copy.meta.lastBackupAt;
 }
 
 function validateBackupData(parsed) {
-  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('That file is not a valid OpenBudget backup.');
-  const candidate = parsed.format === BACKUP_FORMAT ? parsed.data : parsed; // legacy direct-state backups remain supported.
-  if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)) throw new Error('This backup does not contain OpenBudget data.');
-  if (!Array.isArray(candidate.transactions)) throw new Error('This backup is missing required OpenBudget data.');
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('That file is not a valid OwnLedger backup.');
+  const candidate = (parsed.format === BACKUP_FORMAT || parsed.format === LEGACY_BACKUP_FORMAT) ? parsed.data : parsed; // legacy direct-state backups remain supported.
+  if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)) throw new Error('This backup does not contain OwnLedger data.');
+  if (!Array.isArray(candidate.transactions)) throw new Error('This backup is missing required OwnLedger data.');
   const collections=['accounts','income','bills','transactions','debts','goals','investments'];
   for (const key of collections) if (candidate[key] != null && !Array.isArray(candidate[key])) throw new Error(`Invalid backup section: ${key}.`);
   return candidate;
 }
 
 export async function importBackup(file) {
-  if (!file) throw new Error('Choose an OpenBudget backup file first.');
-  if (Number(file.size||0) > MAX_BACKUP_BYTES) throw new Error('That backup is larger than 10 MB. OpenBudget refused to load it for safety.');
+  if (!file) throw new Error('Choose an OwnLedger backup file first.');
+  if (Number(file.size||0) > MAX_BACKUP_BYTES) throw new Error('That backup is larger than 10 MB. OwnLedger refused to load it for safety.');
   let parsed;
   try { parsed = JSON.parse(await file.text()); }
   catch { throw new Error('That file is not valid JSON.'); }

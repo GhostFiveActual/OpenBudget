@@ -8,7 +8,7 @@ function createWindow() {
     minWidth: 900,
     minHeight: 650,
     backgroundColor: '#f5f7fb',
-    title: 'OpenBudget',
+    title: 'OwnLedger',
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       contextIsolation: true,
@@ -22,12 +22,12 @@ function createWindow() {
 
   win.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   win.webContents.on('will-navigate', (event, url) => {
-    const dev = process.env.OPENBUDGET_DEV === '1';
+    const dev = process.env.OWNLEDGER_DEV === '1';
     const allowed = dev && url.startsWith('http://127.0.0.1:5173');
     if (!allowed) event.preventDefault();
   });
 
-  if (process.env.OPENBUDGET_DEV === '1') {
+  if (process.env.OWNLEDGER_DEV === '1') {
     win.loadURL('http://127.0.0.1:5173');
   } else {
     win.loadFile(path.join(__dirname, '..', 'dist', 'index.html'));
@@ -36,15 +36,15 @@ function createWindow() {
 
 app.whenReady().then(() => {
   Menu.setApplicationMenu(null);
-  // Deny all renderer permission requests. OpenBudget does not need camera, microphone,
+  // Deny all renderer permission requests. OwnLedger does not need camera, microphone,
   // geolocation, notifications, MIDI, USB, Bluetooth, clipboard-read, or other device access.
   session.defaultSession.setPermissionRequestHandler((_webContents, _permission, callback) => callback(false));
   session.defaultSession.setPermissionCheckHandler(() => false);
   if (session.defaultSession.setDevicePermissionHandler) session.defaultSession.setDevicePermissionHandler(() => false);
 
-  // Runtime network kill-switch. Production OpenBudget may read only local file/data/blob URLs.
+  // Runtime network kill-switch. Production OwnLedger may read only local file/data/blob URLs.
   session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
-    const dev = process.env.OPENBUDGET_DEV === '1';
+    const dev = process.env.OWNLEDGER_DEV === '1';
     const allowed = details.url.startsWith('file://') || details.url.startsWith('data:') || details.url.startsWith('blob:') ||
       (dev && details.url.startsWith('http://127.0.0.1:5173'));
     callback({ cancel: !allowed });

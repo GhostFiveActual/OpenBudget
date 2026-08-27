@@ -77,4 +77,4 @@ assert.deepEqual(leapDates,['2024-02-29','2025-02-28','2026-02-28','2027-02-28',
 const monthlyPayState={profile:{nextPayDate:'2027-01-31',payFrequency:'monthly'},settings:{},income:[],bills:[],investments:[],goals:[],debts:[]};
 assert.deepEqual(generatePayPeriods(monthlyPayState,4).map(x=>dateString(x.payDate)),['2027-01-31','2027-02-28','2027-03-31','2027-04-30'],'Monthly pay periods preserve the original payday anchor');
 
-console.log('OpenBudget engine, tax, affordability, and Decision Center tests passed');
+console.log('OwnLedger engine, tax, affordability, and Decision Center tests passed');

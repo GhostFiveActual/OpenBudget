@@ -9,11 +9,10 @@ const electron = read('electron/main.cjs');
 const vite = read('vite.config.js');
 const srcFiles = ['src/main.js','src/engine.js','src/store.js','src/tax-data.js','src/tax-engine.js'].map(read).join('\n');
 
-assert.match(
-  pkg.version,
-  /^\d+\.\d+\.\d+$/,
-  "package.json version must use semantic versioning"
-);
+assert.match(pkg.version, /^\d+\.\d+\.\d+$/, 'package version must use semantic versioning');
+assert.equal(pkg.name, 'ownledger');
+assert.equal(pkg.build.productName, 'OwnLedger');
+assert.equal(pkg.build.appId, 'org.ownledger.desktop');
 assert.match(index, /connect-src 'none'/, 'CSP must deny renderer network connections');
 assert.match(index, /src="\.\/src\/main\.js"/, 'portable source entry should be relative');
 assert.doesNotMatch(srcFiles, /https?:\/\//, 'runtime finance source must not contain remote HTTP endpoints');
@@ -33,7 +32,9 @@ assert.match(ci, /npm run build/, 'GitHub CI must build the production renderer'
 assert.match(installers, /npm run dist:win/, 'GitHub installer workflow must build Windows');
 assert.match(installers, /npm run dist:mac/, 'GitHub installer workflow must build macOS');
 assert.match(installers, /npm run dist:linux/, 'GitHub installer workflow must build Linux');
-assert.doesNotMatch(e2e, /\/mnt\/data\/OpenBudget/, 'E2E tests must not depend on the sandbox path');
+assert.doesNotMatch(e2e, /\/mnt\/data\/(?:OpenBudget|OwnLedger)/, 'E2E tests must not depend on the sandbox path');
 assert.match(gitignore, /__pycache__\//, 'Repository must ignore Python caches');
 
-console.log('OpenBudget release/security regression tests passed');
+assert.match(read('src/store.js'), /OPENBUDGET_V5_KEY/, 'OwnLedger must migrate OpenBudget v5 local data');
+assert.match(read('src/store.js'), /OpenBudgetBackup/, 'OwnLedger must import legacy OpenBudget backups');
+console.log('OwnLedger release/security regression tests passed');

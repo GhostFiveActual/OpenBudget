@@ -1,6 +1,6 @@
-# OpenBudget Offline Tax Data
+# OwnLedger Offline Tax Data
 
-OpenBudget never downloads tax data at runtime. Tax rules are bundled with each tested application release so the installed finance application can remain completely offline.
+OwnLedger never downloads tax data at runtime. Tax rules are bundled with each tested application release so the installed finance application can remain completely offline.
 
 ## Current pack
 
@@ -17,11 +17,11 @@ OpenBudget never downloads tax data at runtime. Tax rules are bundled with each 
 
 Payroll withholding is not identical to annual tax liability. Actual checks may differ because of Form W-4 elections, employer payroll methods, bonuses, credits, pre-tax benefit treatment, retirement/HSA/FSA deductions, multiple jobs, residency/work-location rules, and jurisdiction-specific deductions or exemptions.
 
-OpenBudget therefore labels the result as an estimate and exposes the assumptions instead of promising false precision. Users can calibrate the estimate against a real pay stub.
+OwnLedger therefore labels the result as an estimate and exposes the assumptions instead of promising false precision. Users can calibrate the estimate against a real pay stub.
 
 ## Release process
 
-Tax packs should be updated only as part of a tested OpenBudget release. The installed application must not make internet requests to check tax rates.
+Tax packs should be updated only as part of a tested OwnLedger release. The installed application must not make internet requests to check tax rates.
 
 Before publishing a new pack:
 
@@ -32,7 +32,7 @@ Before publishing a new pack:
 5. Publish the updated application as a new signed/reproducible release.
 
 
-## OpenBudget 2.2 federal withholding method
+## OwnLedger 2.2 federal withholding method
 
 Federal income-tax withholding now implements the 2026 IRS Publication 15-T Section 1 automated Percentage Method workflow for current Forms W-4. The bundled annual schedules are stored in `src/tax-data.js`; the calculation is in `src/tax-engine.js`.
 
@@ -46,4 +46,4 @@ Supported W-4 inputs:
 
 FICA also supports separate FICA-exempt deductions and year-to-date Social Security/Medicare wages so wage-base thresholds can be modeled per paycheck.
 
-OpenBudget still labels the result an **estimate** because employer payroll setup, benefit taxability, supplemental wages, special employee classifications, and jurisdiction-specific payroll rules may differ. The optional pay-stub calibration field helps users compare the model with their actual net pay without sending any data off-device.
+OwnLedger still labels the result an **estimate** because employer payroll setup, benefit taxability, supplemental wages, special employee classifications, and jurisdiction-specific payroll rules may differ. The optional pay-stub calibration field helps users compare the model with their actual net pay without sending any data off-device.

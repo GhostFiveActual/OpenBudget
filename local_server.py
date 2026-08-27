@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Local-only fallback server for OpenBudget source builds."""
+"""Local-only fallback server for OwnLedger source builds."""
 from __future__ import annotations
 
 import argparse
@@ -13,18 +13,18 @@ PORT = 8765
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Serve OpenBudget only on this computer.")
+    parser = argparse.ArgumentParser(description="Serve OwnLedger only on this computer.")
     parser.add_argument("--open", action="store_true", help="Open the local URL in the default browser.")
     args = parser.parse_args()
     os.chdir(Path(__file__).resolve().parent)
     try:
         server = ThreadingHTTPServer((HOST, PORT), SimpleHTTPRequestHandler)
     except OSError:
-        print(f"OpenBudget could not start because local port {PORT} is already in use.")
+        print(f"OwnLedger could not start because local port {PORT} is already in use.")
         print("Close the other local server/application using that port, then try again.")
         return 1
     url = f"http://{HOST}:{PORT}"
-    print(f"OpenBudget local-only mode: {url}", flush=True)
+    print(f"OwnLedger local-only mode: {url}", flush=True)
     if args.open:
         webbrowser.open(url)
     try:

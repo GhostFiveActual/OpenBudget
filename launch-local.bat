@@ -2,7 +2,7 @@
 cd /d %~dp0
 where py >nul 2>nul
 if errorlevel 1 (
-  echo OpenBudget local mode requires Python 3. Use the desktop installer for normal use.
+  echo OwnLedger local mode requires Python 3. Use the desktop installer for normal use.
   pause
   exit /b 1
 )

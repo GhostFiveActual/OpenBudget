@@ -1,0 +1,21 @@
+name: Tax / payroll data
+description: Report or propose jurisdiction-specific tax data
+title: "[Tax Data]: "
+labels: ["tax-data"]
+body:
+  - type: input
+    id: jurisdiction
+    attributes: {label: Jurisdiction}
+    validations: {required: true}
+  - type: input
+    id: year
+    attributes: {label: Tax year}
+    validations: {required: true}
+  - type: input
+    id: source
+    attributes: {label: Authoritative government source}
+    validations: {required: true}
+  - type: textarea
+    id: expected
+    attributes: {label: Expected rule or correction}
+    validations: {required: true}
