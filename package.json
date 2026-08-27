@@ -17,7 +17,7 @@
     "test": "node tests/engine.test.mjs && node tests/store.test.mjs && node tests/release.test.mjs"
   },
   "devDependencies": {
-    "concurrently": "^9.2.0",
+    "concurrently": "^10.0.5",
     "cross-env": "^10.0.0",
     "electron": "^37.3.1",
     "electron-builder": "^26.0.12",
