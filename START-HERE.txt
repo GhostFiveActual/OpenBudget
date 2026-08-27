@@ -1,0 +1,37 @@
+OPENBUDGET 3.1.2 — RELEASE-CANDIDATE START HERE
+
+FOR END USERS
+OpenBudget is intended to be distributed as a normal offline desktop installer:
+- Windows: OpenBudget-3.1.2-Windows-Setup.exe
+- macOS: OpenBudget-3.1.2-macOS.dmg
+- Linux: OpenBudget-3.1.2-Linux-*.AppImage or .deb
+
+Once installed, the production desktop wrapper blocks outbound network access. The application does not need an account, bank connection, cloud database, analytics service, or automatic updater.
+
+PORTABLE LOCAL-ONLY FALLBACK
+For source testing when Python 3 is already installed:
+- Windows: double-click launch-local.bat
+- Linux/macOS: run ./launch-local.sh
+
+The fallback binds only to 127.0.0.1 (this computer), never the LAN.
+
+FIRST-RUN RECOMMENDATION
+1. Enter next payday and take-home pay.
+2. Add checking/savings balances and an emergency-fund target.
+3. Add recurring bills and income.
+4. Add debts in Debt Payoff. Do NOT duplicate debt minimums as bills; OpenBudget automatically reserves debt minimums across paychecks.
+5. Export an offline backup after setup.
+
+DEVELOPERS / MAINTAINERS
+1. Install Node.js 20+.
+2. Run: npm install
+3. Run: npm test
+4. Build the target installer:
+   npm run dist:win
+   npm run dist:mac
+   npm run dist:linux
+
+Production Vite assets are configured as relative paths so Electron can load the built application entirely from file://.
+
+NON-NEGOTIABLE PRIVACY RULE
+Do not add telemetry, banking APIs, embedded web content, remote tax lookups, newsletter forms, remote update checks, or analytics to the installed application. Optional release-email signup belongs only on the separate public download website.

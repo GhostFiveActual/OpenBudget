@@ -1,0 +1,45 @@
+name: OpenBudget CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install JavaScript build dependencies
+        run: npm install
+
+      - name: Install browser test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-test.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Run calculation, storage, and security tests
+        run: npm test
+
+      - name: Run browser end-to-end test
+        run: python tests/e2e_ui.py
+
+      - name: Build production renderer
+        run: npm run build
