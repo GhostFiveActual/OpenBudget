@@ -10,6 +10,7 @@
   },
   "license": "MIT",
   "main": "electron/main.cjs",
+  "desktopName": "org.openbudget.desktop",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -67,8 +68,7 @@
         "deb"
       ],
       "category": "Office",
-      "desktopName": "OpenBudget",
-      "syncDesktopName": true,
+      "maintainer": "GhostFiveActual <brandonsutan@gmail.com>",
       "artifactName": "OpenBudget-${version}-Linux-${arch}.${ext}"
     }
   }
