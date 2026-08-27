@@ -1,6 +1,6 @@
 {
   "name": "openbudget",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "private": false,
   "type": "module",
   "description": "A private, offline-first, open-source personal finance desktop application.",
