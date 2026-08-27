@@ -4,7 +4,10 @@
   "private": false,
   "type": "module",
   "description": "A private, offline-first, open-source personal finance desktop application.",
-  "author": "GhostFiveActual",
+  "author": {
+    "name": "GhostFiveActual",
+    "email": "brandonsutan@gmail.com"
+  },
   "license": "MIT",
   "main": "electron/main.cjs",
   "scripts": {
@@ -64,6 +67,8 @@
         "deb"
       ],
       "category": "Office",
+      "dekstopName": "OpenBudget",
+      "syncDesktopName": true,
       "artifactName": "OpenBudget-${version}-Linux-${arch}.${ext}"
     }
   }
