@@ -4,12 +4,15 @@
   "private": false,
   "type": "module",
   "description": "A private, offline-first, open-source personal finance desktop application.",
+  "author": "GhostFiveActual",
+  "license": "MIT",
   "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node tests/engine.test.mjs && node tests/storage.test.mjs",
+    "test": "node tests/engine.test.mjs && node tests/store.test.mjs && node tests/release.test.mjs",
+    "dist": "npm run build && electron-builder --publish never",
     "dist:win": "npm run build && electron-builder --win --publish never",
     "dist:mac": "npm run build && electron-builder --mac --publish never",
     "dist:linux": "npm run build && electron-builder --linux --publish never"
@@ -63,6 +66,5 @@
       "category": "Office",
       "artifactName": "OpenBudget-${version}-Linux-${arch}.${ext}"
     }
-  },
-  "license": "MIT"
+  }
 }
